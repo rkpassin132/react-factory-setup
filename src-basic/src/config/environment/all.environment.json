@@ -1,0 +1,5 @@
+{
+  "appName": "My App",
+  "logLevel": "info",
+  "API_BASE_URL": "http://localhost:3000"
+}
