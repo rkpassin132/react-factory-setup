@@ -1,1 +1,2 @@
 // your constant variable
+export {};

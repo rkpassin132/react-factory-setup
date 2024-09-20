@@ -1,0 +1,18 @@
+{
+    "component": {
+        "path": "src/components",
+        "type": "functional"
+    },
+    "service":{
+        "path": "src/services"
+    },
+    "route": {
+        "path": "/src/routes"
+    },
+    "context":{
+        "path": "src/context"
+    },
+    "hook":{
+        "path": "src/hooks"
+    }
+}
