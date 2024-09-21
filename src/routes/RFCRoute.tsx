@@ -1,34 +1,32 @@
-import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+/** @format */
 
-type Middleware = () => JSX.Element | null;
+import React from "react";
+import { Route as DefaultRoute, Navigate, RouteProps } from "react-router-dom";
 
-interface MiddlewareRouteProps {
-  element: React.ReactElement;  // The component to render
-  middlewares?: Middleware[];   // Array of middleware functions
-  path: string;                 // Path is required
+type RFCRouteProps = RouteProps & {
+  children?: React.ReactNode;
+  middlewares?: Array<() => boolean>;
 }
 
-const RFCRoute: React.FC<MiddlewareRouteProps> = ({ element, middlewares = [], path }) => {
-  const renderWithMiddleware = (): JSX.Element | null => {
-    // Execute each middleware
+const Route: React.FC<RFCRouteProps>  = ({
+  middlewares = [],
+  ...rest
+}) => {
+  // Middleware execution
+  const runMiddlewares = () => {
     for (const middleware of middlewares) {
-      const result = middleware();
-      if (result !== null) {
-        return result; // If middleware fails, return its result (e.g., redirect)
+      if (!middleware()) {
+        return false; 
       }
     }
-
-    // If all middleware pass, return the element
-    return element; // element is guaranteed to be a ReactElement
+    return true; 
   };
 
-  return (
-    <Route
-      path={path}
-      element={renderWithMiddleware() ?? <Navigate to="/" />} // Fallback to a Navigate component if null
-    />
-  );
+  if (!runMiddlewares()) {
+    return <Navigate to="/access-denied" />;
+  }
+
+  return <DefaultRoute {...rest} />;
 };
 
-export default RFCRoute;
+export default Route;
