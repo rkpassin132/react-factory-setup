@@ -1,6 +1,8 @@
-$primary-color: #3490dc;
+$primary-color: #0e1722;
 
 body {
   font-family: 'Arial', sans-serif;
   padding: 10px;
+  background-color: $primary-color;
+  color: white;
 }
