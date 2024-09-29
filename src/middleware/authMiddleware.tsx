@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { getAuthToken } from '../services/tokenService'; // Adjust the import path as needed
+import { getAuthToken } from '../services/localStorageService'; // Adjust the import path as needed
 
 const authMiddleware = async (): Promise<JSX.Element | null> => {
   const token = await getAuthToken();

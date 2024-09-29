@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './styles/tailwind.css';  // Import Tailwind
-import './styles/global.scss';   // Import global Sass
-import { ThemeProvider } from './context/ThemeContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "./styles/tailwind.css"; // Import Tailwind
+import "./styles/global.scss"; // Import global Sass
+import { ThemeProvider } from "./context/ThemeContext";
+import { HelmetProvider } from 'react-helmet-async';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 
