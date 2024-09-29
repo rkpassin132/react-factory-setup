@@ -1,22 +1,22 @@
-import http from "./httpService";
+import http from './httpService';
 import {
   setAuthToken,
   removeAuthToken,
   getAuthToken,
-} from "./localStorageService";
-import { ApiResponse } from "../utils/interfaces/apiResponse.interface";
+} from './localStorageService';
+import { ApiResponse } from '../utils/interfaces/apiResponse.interface';
 import {
   AuthResponse,
   LoginCredentials,
   SignupData,
-} from "../utils/interfaces/auth.interface";
+} from '../utils/interfaces/auth.interface';
 
 const login = async (
   credentials: LoginCredentials
 ): Promise<ApiResponse<AuthResponse>> => {
   try {
     const response = await http.post<ApiResponse<AuthResponse>>(
-      "/auth/login",
+      '/auth/login',
       credentials
     );
     const { data } = response.data;
@@ -37,7 +37,7 @@ const signup = async (
 ): Promise<ApiResponse<AuthResponse>> => {
   try {
     const response = await http.post<ApiResponse<AuthResponse>>(
-      "/auth/signup",
+      '/auth/signup',
       signupData
     );
     const { data } = response.data;
@@ -58,7 +58,7 @@ const logout = async (): Promise<void> => {
     await removeAuthToken();
     // Optionally, notify the server to invalidate the session
   } catch (error) {
-    console.error("Error during logout:", error);
+    console.error('Error during logout:', error);
     throw error;
   }
 };
@@ -72,15 +72,15 @@ const handleAuthError = (error: any): void => {
     const { status, data } = error.response;
 
     const messages: { [key: number]: string } = {
-      400: "Bad request: Invalid credentials provided.",
-      401: "Unauthorized: Authentication failed. Logging out.",
-      500: "Server error: An internal server error occurred.",
+      400: 'Bad request: Invalid credentials provided.',
+      401: 'Unauthorized: Authentication failed. Logging out.',
+      500: 'Server error: An internal server error occurred.',
     };
 
     console.error(messages[status] || `Unexpected error: ${data?.message}`);
     if (status === 401) logout();
   } else {
-    console.error("Network or unexpected error:", error.message || error);
+    console.error('Network or unexpected error:', error.message || error);
   }
 };
 

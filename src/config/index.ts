@@ -24,7 +24,7 @@ switch (env) {
 // Merge the common settings with the environment-specific settings
 const config = {
   ...allConfig,
-  ...envConfig
+  ...envConfig,
 };
 
 export default config;

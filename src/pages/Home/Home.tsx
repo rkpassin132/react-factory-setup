@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import "./Home.module.scss";
-import { Helmet } from "react-helmet-async";
+import React, { useEffect } from 'react';
+import './Home.module.scss';
+import { Helmet } from 'react-helmet-async';
 
 const Home: React.FC = () => {
   useEffect(() => {

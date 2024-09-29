@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import config from '../config';
-import { getAuthToken } from "./localStorageService";
-import { InternalAxiosRequestConfig } from "axios";
+import { getAuthToken } from './localStorageService';
+import { InternalAxiosRequestConfig } from 'axios';
 
 axios.defaults.baseURL = config.API_BASE_URL;
 
@@ -23,7 +23,7 @@ axios.interceptors.request.use(
 const requestInterceptor: number = axios.interceptors.request.use(
   (axiosConfig: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     // Add authorization header or modify request
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     if (token) {
       axiosConfig.headers.Authorization = `Bearer ${token}`;
     }
@@ -47,20 +47,20 @@ axios.interceptors.response.use(
 // Centralized error handling
 const handleHttpError = (error: AxiosError): void => {
   if (!error.response) {
-    console.error("Network error or request was not completed:", error.message);
+    console.error('Network error or request was not completed:', error.message);
     return;
   }
 
-  const { status, data }:any = error.response;
+  const { status, data }: any = error.response;
 
   if (status === 401) {
-    console.error("Unauthorized access. Please log in again.");
+    console.error('Unauthorized access. Please log in again.');
   } else if (status >= 400 && status < 500) {
-    console.error(`Client error: ${data?.message || "An error occurred."}`);
+    console.error(`Client error: ${data?.message || 'An error occurred.'}`);
   } else if (status >= 500) {
-    console.error(`Server error: ${data?.message || "Server issue occurred."}`);
+    console.error(`Server error: ${data?.message || 'Server issue occurred.'}`);
   } else {
-    console.error("Unexpected error:", error);
+    console.error('Unexpected error:', error);
   }
 };
 

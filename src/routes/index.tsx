@@ -12,7 +12,7 @@ const AppRoute: React.FC = () => {
         {/* <Route path="/admin/" element={<MiddlewareWrapper middlewares={[]} />} >
           <Route index path="dashboard" element={<DashboardPage />} />
         </Route> */}
-        <Route path="*" element={<NotFound />} /> 
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -19,5 +19,4 @@ describe('HomePage Component', () => {
     expect(screen.getByText(title)).toBeInTheDocument();
     expect(screen.getByText(description)).toBeInTheDocument();
   });
-
 });

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import "./Header.module.scss";
+import React, { useEffect } from 'react';
+import './Header.module.scss';
 
 const Header: React.FC = () => {
   useEffect(() => {

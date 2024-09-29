@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import "./Footer.module.scss";
+import React, { useEffect } from 'react';
+import './Footer.module.scss';
 
 const Footer: React.FC = () => {
   useEffect(() => {
@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer-container p-4 text-center">
       <p className="text-white-600">
-        Check out the full documentation for <strong>React-Factory-Cli</strong>{" "}
+        Check out the full documentation for <strong>React-Factory-Cli</strong>{' '}
         on
         <a
           href="https://www.npmjs.com/package/react-factory-cli"

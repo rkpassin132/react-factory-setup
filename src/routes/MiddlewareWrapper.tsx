@@ -1,7 +1,7 @@
 /** @format */
 
-import React from "react";
-import { Navigate, RouteProps, Outlet } from "react-router-dom";
+import React from 'react';
+import { Navigate, RouteProps, Outlet } from 'react-router-dom';
 
 type MiddlewareWrapperProps = RouteProps & {
   children?: React.ReactNode;

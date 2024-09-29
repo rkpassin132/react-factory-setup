@@ -3,12 +3,12 @@ import { getAuthToken } from '../services/localStorageService'; // Adjust the im
 
 const authMiddleware = async (): Promise<JSX.Element | null> => {
   const token = await getAuthToken();
-  
+
   // If there is no token, redirect to home
   if (!token) {
     return <Navigate to="/" />;
   }
-  
+
   // If token exists, allow access (return null)
   return null;
 };
