@@ -1,39 +1,68 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import config from '../config';
-import { getAuthToken } from "./tokenService";
+import { getAuthToken } from "./localStorageService";
+import { InternalAxiosRequestConfig } from "axios";
 
 axios.defaults.baseURL = config.API_BASE_URL;
 
 // Request interceptor to add auth token
 axios.interceptors.request.use(
-  async (config) => {
+  async (axiosConfig: InternalAxiosRequestConfig) => {
     const token = await getAuthToken();
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      axiosConfig.headers.Authorization = `Bearer ${token}`;
     }
-    return config;
+    return axiosConfig;
   },
-  (error) => {
+  (error: AxiosError) => {
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(null, (error) => {
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
+// Define your request and response interceptor managers
+const requestInterceptor: number = axios.interceptors.request.use(
+  (axiosConfig: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    // Add authorization header or modify request
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      axiosConfig.headers.Authorization = `Bearer ${token}`;
+    }
+    return axiosConfig;
+  },
+  (error) => {
+    // Handle request error
+    return Promise.reject(error);
+  }
+);
 
-  if (error.response.status === 401) {
-    // authStorage.logout();
+// Response interceptor for error handling
+axios.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    handleHttpError(error);
+    return Promise.reject(error);
+  }
+);
+
+// Centralized error handling
+const handleHttpError = (error: AxiosError): void => {
+  if (!error.response) {
+    console.error("Network error or request was not completed:", error.message);
+    return;
   }
 
-  if (!expectedError) {
-    console.error("Unexpected error: ", error);
-  }
+  const { status, data }:any = error.response;
 
-  return Promise.reject(error);
-});
+  if (status === 401) {
+    console.error("Unauthorized access. Please log in again.");
+  } else if (status >= 400 && status < 500) {
+    console.error(`Client error: ${data?.message || "An error occurred."}`);
+  } else if (status >= 500) {
+    console.error(`Server error: ${data?.message || "Server issue occurred."}`);
+  } else {
+    console.error("Unexpected error:", error);
+  }
+};
 
 const http = {
   get: axios.get,
