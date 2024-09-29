@@ -3,6 +3,10 @@
     "path": "src/components",
     "type": "functional"
   },
+  "page": {
+    "path": "src/pages",
+    "type": "functional"
+  },
   "service": {
     "path": "src/services"
   },
